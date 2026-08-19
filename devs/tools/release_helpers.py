@@ -41,7 +41,7 @@ def run(*args, cwd, capture_output=True):
     if not capture_output:
         subprocess.check_call(args, cwd=cwd, stdout=subprocess.DEVNULL)
         return ""
-    return subprocess.check_output(args, cwd=cwd, text=True, stdout=subprocess.DEVNULL).strip()
+    return subprocess.check_output(args, cwd=cwd, text=True).strip()
 
 
 def version_arg(doc):
@@ -102,7 +102,7 @@ def commit_and_push(root, branch, message):
     print("Commiting and pushing...")
     print()
 
-    run("git", "add", "--all", cwd=root)
+    run("git", "add", "--all", cwd=root, capture_output=False)
     run("git", "commit", "-m", message, cwd=root, capture_output=False)
     print(f"Pushing {branch} to origin...")
     run("git", "push", "--set-upstream", "origin", branch, cwd=root, capture_output=False)
