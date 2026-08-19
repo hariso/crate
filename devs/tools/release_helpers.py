@@ -94,7 +94,7 @@ def create_branch(root, branch, base):
     print(f"Creating branch {branch} from origin/{base}...")
     print()
 
-    run("git", "checkout", "-b", branch, f"origin/{base}", cwd=root, capture_output=True)
+    run("git", "checkout", "-b", branch, f"origin/{base}", cwd=root, capture_output=False)
 
 def commit_and_push(root, branch, message):
     print()
@@ -103,9 +103,9 @@ def commit_and_push(root, branch, message):
     print()
 
     run("git", "add", "--all", cwd=root)
-    run("git", "commit", "-m", message, cwd=root, capture_output=True)
+    run("git", "commit", "-m", message, cwd=root, capture_output=False)
     print(f"Pushing {branch} to origin...")
-    run("git", "push", "--set-upstream", "origin", branch, cwd=root, capture_output=True)
+    run("git", "push", "--set-upstream", "origin", branch, cwd=root, capture_output=False)
 
 
 def open_pull_request(root, base, branch, title):
