@@ -41,7 +41,7 @@ def run(*args, cwd, capture_output=True):
     if not capture_output:
         subprocess.check_call(args, cwd=cwd, stdout=subprocess.DEVNULL)
         return ""
-    return subprocess.check_output(args, cwd=cwd, text=True).strip()
+    return subprocess.check_output(args, cwd=cwd, text=True, stdout=subprocess.DEVNULL).strip()
 
 
 def version_arg(doc):
