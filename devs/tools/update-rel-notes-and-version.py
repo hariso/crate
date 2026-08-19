@@ -49,6 +49,12 @@ from release_helpers import (NOTES_DIR, VERSION_JAVA, commit_and_push, create_br
 
 def patch_release_notes(text, version, released_on):
     """Turn the "Unreleased" release notes of ``version`` into released notes"""
+
+    print()
+    print("=" * 60)
+    print("Patching release notes...")
+    print()
+
     title = f"Version {version}"
     unreleased_title = re.compile(
         r"^=+\n" + re.escape(f"{title} - Unreleased") + r"\n=+\n",
@@ -81,6 +87,12 @@ def patch_release_notes(text, version, released_on):
 
 def patch_version_java(text, version):
     """Clear the snapshot flag of the ``V_<version>`` constant"""
+
+    print()
+    print("=" * 60)
+    print("Patching Version.java...")
+    print()
+
     constant = "V_" + version.replace(".", "_")
     declaration = re.compile(
         r"^(\s*public static final Version "
@@ -110,7 +122,7 @@ def main():
 
     root = repo_root(__file__)
     fetch_and_check(root, base, branch)
-    previous_branch = create_branch(root, branch, base)
+    create_branch(root, branch, base)
 
     paths = (f"{NOTES_DIR}/{version}.rst", VERSION_JAVA)
     patches = (lambda text: patch_release_notes(text, version, released_on),

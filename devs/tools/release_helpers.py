@@ -73,8 +73,13 @@ def fetch_and_check(root, base, branch):
     """Verify the checkout is ready to create ``branch`` off ``origin/base``"""
     if run("git", "status", "--porcelain", cwd=root):
         sys.exit("working directory not clean, commit or stash your changes first")
+
+    print()
+    print("=" * 60)
     print("Fetching origin...")
-    run("git", "fetch", "origin", cwd=root)
+    print()
+
+    run("git", "fetch", "origin", cwd=root, capture_output=False)
     if not ref_exists(root, f"refs/remotes/origin/{base}"):
         sys.exit(f"origin/{base} does not exist, is there a {base} release branch?")
     for ref in (f"refs/heads/{branch}", f"refs/remotes/origin/{branch}"):
@@ -84,14 +89,19 @@ def fetch_and_check(root, base, branch):
 
 def create_branch(root, branch, base):
     """Check out ``branch`` at ``origin/base``, returning the previous branch"""
+    print()
+    print("=" * 60)
     print(f"Creating branch {branch} from origin/{base}...")
-    previous = run("git", "rev-parse", "--abbrev-ref", "HEAD", cwd=root)
-    if previous == "HEAD":  # detached, remember the commit instead
-        previous = run("git", "rev-parse", "HEAD", cwd=root)
+    print()
+
     run("git", "checkout", "-b", branch, f"origin/{base}", cwd=root, capture_output=False)
-    return previous
 
 def commit_and_push(root, branch, message):
+    print()
+    print("=" * 60)
+    print("Commiting and pushing...")
+    print()
+
     run("git", "add", "--all", cwd=root)
     run("git", "commit", "-m", message, cwd=root, capture_output=False)
     print(f"Pushing {branch} to origin...")
@@ -100,6 +110,10 @@ def commit_and_push(root, branch, message):
 
 def open_pull_request(root, base, branch, title):
     """Create the pull request of ``branch`` against ``base``"""
+    print()
+    print("=" * 60)
     print(f"Creating the pull request of {branch}...")
+    print()
+
     run("gh", "pr", "create", "--base", base, "--head", branch,
         "--title", title, "--body", "", cwd=root, capture_output=False)
