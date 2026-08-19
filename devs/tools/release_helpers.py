@@ -103,9 +103,9 @@ def commit_and_push(root, branch, message):
     print()
 
     run("git", "add", "--all", cwd=root)
-    run("git", "commit", "-m", message, cwd=root, capture_output=False)
+    run("git", "commit", "-m", message, cwd=root, capture_output=True)
     print(f"Pushing {branch} to origin...")
-    run("git", "push", "--set-upstream", "origin", branch, cwd=root, capture_output=False)
+    run("git", "push", "--set-upstream", "origin", branch, cwd=root, capture_output=True)
 
 
 def open_pull_request(root, base, branch, title):
