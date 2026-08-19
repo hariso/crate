@@ -116,4 +116,4 @@ def open_pull_request(root, base, branch, title):
     print()
 
     run("gh", "pr", "create", "--base", base, "--head", branch,
-        "--title", title, "--body", "", cwd=root, capture_output=False)
+        "--title", title, "--body", "", cwd=root, capture_output=True)
