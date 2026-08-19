@@ -39,7 +39,7 @@ def run(*args, cwd, capture_output=True):
     If ``capture_output``, the output of the command is captured and returned.
     """
     if not capture_output:
-        subprocess.check_call(args, cwd=cwd)
+        subprocess.check_call(args, cwd=cwd, stdout=subprocess.DEVNULL)
         return ""
     return subprocess.check_output(args, cwd=cwd, text=True).strip()
 
