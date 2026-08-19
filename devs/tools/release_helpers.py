@@ -94,7 +94,7 @@ def create_branch(root, branch, base):
     print(f"Creating branch {branch} from origin/{base}...")
     print()
 
-    run("git", "checkout", "-b", branch, f"origin/{base}", cwd=root, capture_output=False)
+    run("git", "checkout", "-b", branch, f"origin/{base}", cwd=root, capture_output=True)
 
 def commit_and_push(root, branch, message):
     print()
